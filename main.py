@@ -52,19 +52,19 @@ async def add_event(id: str, e: Event):
 
 @app.get("/{id}", response_model=List[Event])
 async def get_events(id: str):
-    # retrieve pointer (points at the oldest unread event)
-    pointer = r.get(f"{id}:pointer")
-    pointer = 0 if pointer is None else pointer
+    # retrieve cursor (points at the oldest unread event)
+    cursor = r.get(f"{id}:cursor")
+    cursor = 0 if cursor is None else cursor
 
     # retrieve event ids from event list
-    event_ids = r.lrange(f"{id}:events", pointer, -1)
+    event_ids = r.lrange(f"{id}:events", cursor, -1)
     print(event_ids)
 
     # retrieve event for each event id
     events = event_storage.search(EventQuery.id.one_of(event_ids))
 
-    # update pointer
-    r.incr(f"{id}:pointer", len(events))
+    # update cursor
+    r.incr(f"{id}:cursor", len(events))
 
     # return events
     return events
