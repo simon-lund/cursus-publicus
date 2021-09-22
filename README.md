@@ -5,7 +5,7 @@ This is a simple proof of concept for a stand-alone [ReST](https://de.wikipedia.
 - (Redis)[https://redis.io/]
 - (FastAPI)[https://fastapi.tiangolo.com/]
 
-## ⚙️ Installation
+## ⏳ Installation
 After installing Redis run `uvicorn main:app --reload` to start the app. 
 Once running check out the docs at http://127.0.0.1:8000/docs.
 
